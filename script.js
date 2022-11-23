@@ -56,5 +56,123 @@ var game = {
         pong.listen();
         },
 
-        
-}
+       
+
+        draw: function(){
+            this.context.clearRect(
+                0,
+                0,
+                this.canvas.width,
+                this.canvas.eight,
+            )
+
+            this.context.fillStyle = this.color;
+            this.context.fillRect(
+                0,
+                0,
+                this.canvas.width,
+                this.canvas.height
+            );
+
+            this.context.fillStyle = '#43d545';
+            this.context.fillRect(
+                this.player.x,
+                this.player.y,
+                this.player.width,
+                this.player.height,
+
+            );
+
+            this.context.fillStyle = '#43d545';
+            this.context.fillRect(
+                this.bet.x,
+                this.bet.y,
+                this.bet.width,
+                this.bet.height,
+            );
+
+            if (pong._turnDelayIsOver.call(this)) {
+                this.context.fillRect(
+                    this.ball.x,
+                    this.ball.y,
+                    this.ball.width,
+                    this.ball.height,
+                )
+            }
+            this.context.beginPath();
+            this.context.setLineDash([7, 15]);
+            this.context.moveTo((this.canvas.width / 2), this.canvas.height - 140);
+            this.context.lineTo((this.canvas.width / 2), 140);
+            this.context.lineWidth = 10;
+            this.context.strokeStyle = '#43d545';
+            this.context.stroke();
+            this.context.font = '100px Courier New';
+            this.context.textAlign = 'center';
+            this.context.fillText(
+                this.player.score.toString(),
+                (this.canvas.width / 2) + 300,
+                200
+            );
+
+            this.context.font = '30px Courier New';
+
+            this.context.fillText(
+                'Round'+ (pong.round + 1),
+                (this.canvas.width / 2),
+                35
+            );
+
+            this.context.font = '40px Courier';
+            this.context.fillText(
+                rounds[pong.round] ? rounds[pong.round] : rounds[pong.round - 1],
+                (this.canvas.width / 2),
+                100
+            );
+
+        },
+
+        menu: function(){
+            pong.draw();
+
+            this.context.font = '50px Courier New';
+            this.context.fillStyle = this.color;
+            this.context.fillRect(
+                this.canvas.widht / 2 - 350,
+                this.canvas.height / 2 - 48,
+                700,
+                100
+            )
+            this.context.fillStyle = '#ffffff';
+            this.context.fillText('Press any key to begin',
+            this.canvas.widht / 2,
+            this.canvas.eight / 2 + 15
+            );
+    
+        },
+
+        endgameMenu: function (text) {
+            pong.context.font = '50px Courier New';
+            pong.context.fillStyle = this.color;
+
+            this.context.fillRect(
+                this.canvas.widht / 2 - 350,
+                this.canvas.height / 2 - 48,
+                700,
+                100
+            )
+
+            pong.context.fillStyle = '#43d545';
+
+            pong.context.fillText(text, 
+            pong.canvas.widht / 2,
+            pong.canvas.height / 2 + 15
+            );
+
+            setTimeout(function() {
+                pong = Object.assign({}, game);
+                pong.initialize(); }, 3000);
+            },
+};
+
+var pong = Object.assign({}, game);
+pong.initialize();
