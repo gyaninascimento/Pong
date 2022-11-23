@@ -172,6 +172,10 @@ var game = {
                 pong = Object.assign({}, game);
                 pong.initialize(); }, 3000);
             },
+
+            update: function () {
+                
+            }
 };
 
 var pong = Object.assign({}, game);
